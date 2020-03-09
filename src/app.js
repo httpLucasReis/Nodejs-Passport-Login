@@ -10,11 +10,7 @@ const mongoose = require('mongoose');
 
 const routes = require('./routes');
 const initializePassport = require('./config/passport');
-const {
-  byEmail: getUserByEmail,
-  byId: getUserById
-} = require('./utils/getUser');
-initializePassport(passport, getUserByEmail, getUserById);
+initializePassport(passport);
 
 class App {
   constructor() {
