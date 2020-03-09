@@ -19,6 +19,13 @@ class AppController {
     try {
       const { name, email, password } = req.body;
 
+      const user = await User.findOne({ email });
+
+      if (user) {
+        req.flash('conflict', 'This user already exists');
+        return res.redirect('/register');
+      }
+
       await User.create({ name, email, password });
       res.redirect('/login');
     } catch {

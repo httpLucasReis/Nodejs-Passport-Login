@@ -1,4 +1,7 @@
 <h1>Register</h1>
+<% if (messages.conflict) { %>
+  <%= messages.conflict %>
+<% } %>
 <form action="/register" method="POST">
   <div>
     <label for="name">Name</label>
