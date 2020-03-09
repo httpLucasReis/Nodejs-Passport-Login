@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const users = require('../../mock/users');
+const User = require('../models/User');
 
 class AppController {
   index(req, res) {
@@ -19,13 +19,7 @@ class AppController {
     try {
       const { name, email, password } = req.body;
 
-      const hashedPassword = await bcrypt.hash(password, 10);
-      users.push({
-        id: Date.now().toString(),
-        name: name,
-        email: email,
-        password: hashedPassword,
-      });
+      await User.create({ name, email, password });
       res.redirect('/login');
     } catch {
       res.redirect('/register');
