@@ -1,0 +1,53 @@
+import { Request, Response } from 'express';
+
+import User from '../models/User';
+import UserValidator from '../validators/UserValidator';
+
+class LoginController {
+  renderLogin(req: Request, res: Response) {
+    return res.render('login');
+  }
+
+  renderRegister(req: Request, res: Response) {
+    return res.render('register');
+  }
+
+  async register(req: Request, res: Response) {
+    try {
+      const { username, password1, password2 } = req.body;
+
+      const userExists = await User.findOne({ username });
+      if (userExists) {
+        req.flash('error', "There's already an account with that username.");
+        return res.status(409).render('register');
+      }
+
+      const invalidUsername = !(UserValidator.validateUsername(username));
+      if (invalidUsername) {
+        req.flash('error', 'Invalid username.');
+        return res.status(406).render('register');
+      }
+
+      const invalidPasswords = !(UserValidator.validatePasswords(password1, password2));
+      if (invalidPasswords) {
+        req.flash('error', 'Invalid passwords');
+        return res.status(400).render('register');
+      }
+
+      await User.create({ username, password: password1 });
+
+      req.flash('success', 'Account created successfully');
+      return res.redirect('/login');
+    } catch (err) {
+      req.flash('error', "Couldn't register your account, try again.");
+      return res.render('register');
+    }
+  }
+
+  async logout(req: Request, res: Response) {
+    req.logOut();
+    return res.sendStatus(200);
+  }
+}
+
+export default new LoginController;
