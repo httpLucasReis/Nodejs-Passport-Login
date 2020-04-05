@@ -1,2 +1,8 @@
+# Dependencies
+node_modules/
+
+# Misc
 .env
-node_modules
+
+# Production
+dist/
