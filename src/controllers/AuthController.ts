@@ -4,15 +4,15 @@ import User from '../models/User';
 import UserValidator from '../validators/UserValidator';
 
 class LoginController {
-  renderLogin(req: Request, res: Response) {
+  public renderLogin(req: Request, res: Response) {
     return res.render('login');
   }
 
-  renderRegister(req: Request, res: Response) {
+  public renderRegister(req: Request, res: Response) {
     return res.render('register');
   }
 
-  async register(req: Request, res: Response) {
+  public async register(req: Request, res: Response) {
     try {
       const { username, password1, password2 } = req.body;
 
@@ -30,13 +30,13 @@ class LoginController {
 
       const invalidPasswords = !(UserValidator.validatePasswords(password1, password2));
       if (invalidPasswords) {
-        req.flash('error', 'Invalid passwords');
+        req.flash('error', 'Invalid password.');
         return res.status(400).render('register');
       }
 
       await User.create({ username, password: password1 });
 
-      req.flash('success', 'Account created successfully');
+      req.flash('success', 'Account created successfully.');
       return res.redirect('/login');
     } catch (err) {
       req.flash('error', "Couldn't register your account, try again.");
@@ -44,7 +44,7 @@ class LoginController {
     }
   }
 
-  async logout(req: Request, res: Response) {
+  public async logout(req: Request, res: Response) {
     req.logOut();
     return res.sendStatus(200);
   }

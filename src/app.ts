@@ -23,7 +23,7 @@ class App {
     this._express = express;
   }
 
-  constructor() {
+  public constructor() {
     this._express = express();
 
     this.settings();
@@ -31,13 +31,13 @@ class App {
     this.routes();
   }
 
-  settings() {
+  private settings() {
     this._express.set('views', resolve(__dirname, 'views'));
     this._express.set('view engine', 'ejs');
     this._express.set('PORT', process.env.PORT || 3333);
   }
 
-  middlewares() {
+  private middlewares() {
     this._express.use(express.urlencoded({ extended: false }));
     this._express.use(express.json());
 
@@ -53,7 +53,7 @@ class App {
     this._express.use(passport.session());
   }
 
-  routes() {
+  private routes() {
     this._express.use('/public', express.static(resolve(__dirname, 'public')));
     this._express.use(routes);
 
