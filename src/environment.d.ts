@@ -6,6 +6,9 @@ declare global {
       JWT_KEY: string;
       SESSION_SECRET: string;
       MONGODB_URI: string;
+      HOST: string;
+      PORT: number;
+      NODE_ENV: string;
     }
   }
 }

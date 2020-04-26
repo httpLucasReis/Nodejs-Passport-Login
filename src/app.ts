@@ -5,11 +5,13 @@ import flash from 'express-flash';
 import passport from 'passport';
 import { resolve } from 'path';
 
-dotenv.config();
-
 import handlePageNotFound from './middlewares/handlePageNotFound';
 import routes from './routes';
 import initializePassport from './config/passport';
+
+if (process.env.NODE_ENV === 'development') {
+  dotenv.config();
+}
 
 initializePassport(passport);
 
