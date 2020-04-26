@@ -4,6 +4,7 @@ import session, { SessionOptions } from 'express-session';
 import flash from 'express-flash';
 import passport from 'passport';
 import { resolve } from 'path';
+import helmet from 'helmet';
 
 import handlePageNotFound from './middlewares/handlePageNotFound';
 import routes from './routes';
@@ -42,6 +43,7 @@ class App {
   private middlewares() {
     this._express.use(express.urlencoded({ extended: false }));
     this._express.use(express.json());
+    this._express.use(helmet());
 
     const sessionOptions: SessionOptions = {
       resave: false,
