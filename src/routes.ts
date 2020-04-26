@@ -8,6 +8,8 @@ import passport from 'passport';
 
 // Middlewares
 import checkAuthentication from './middlewares/checkAuthentication';
+import bruteForce from './middlewares/bruteForce';
+import resetBruteForce from './middlewares/resetBruteForce';
 
 const { checkAuthenticated, checkNotAuthenticated } = checkAuthentication;
 
@@ -15,14 +17,18 @@ const { checkAuthenticated, checkNotAuthenticated } = checkAuthentication;
 const routes = Router();
 
 routes.get('/login', checkNotAuthenticated, AuthController.renderLogin);
-routes.post('/login', passport.authenticate('local', {
-  successRedirect: '/private',
+routes.post('/login', bruteForce.prevent, passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: true,
-}));
+}), resetBruteForce);
 
 routes.get('/register', checkNotAuthenticated, AuthController.renderRegister);
-routes.post('/register', checkNotAuthenticated, AuthController.register);
+routes.post(
+  '/register',
+  bruteForce.prevent,
+  checkNotAuthenticated,
+  AuthController.register
+);
 
 routes.delete('/logout', checkAuthenticated, AuthController.logout);
 
