@@ -13,6 +13,16 @@ const UserSchema = new Schema(
       unique: true,
       minlength: 2,
       maxlength: 50,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      lowercase: true,
+      index: true,
+      unique: true,
+      maxlength: 255,
+      trim: true,
     },
     password: {
       type: String,

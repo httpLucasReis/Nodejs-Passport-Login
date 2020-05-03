@@ -5,6 +5,7 @@ interface UserInterface extends Document {
   username: string;
   password: string;
   verifyPassword(password: string): boolean;
+  email: string;
 }
 
 export default UserInterface;

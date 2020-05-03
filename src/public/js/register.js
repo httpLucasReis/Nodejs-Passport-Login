@@ -4,6 +4,7 @@
 
   form.addEventListener('submit', (event) => {
     const username = document.querySelector('#inputUsername').value;
+    const email = document.querySelector('#inputEmail').value;
     const password1 = document.querySelector('#inputPassword1').value;
     const password2 = document.querySelector('#inputPassword2').value;
 
@@ -20,6 +21,16 @@
     if (invalidUsername) {
       event.preventDefault();
       const errorEl = window.generateError('Invalid username.');
+      divContainer.prepend(errorEl);
+      return;
+    }
+
+    const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const invalidEmail = !emailRegexp.test(email);
+
+    if (invalidEmail) {
+      event.preventDefault();
+      const errorEl = window.generateError('Invalid email format.');
       divContainer.prepend(errorEl);
       return;
     }
