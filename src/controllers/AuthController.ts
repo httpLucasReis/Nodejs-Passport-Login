@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import User from '../models/User';
 import UserValidator from '../validators/UserValidator';
+import hashPassword from '../utils/hashPassword';
 
 class LoginController {
   public renderLogin(req: Request, res: Response) {
@@ -40,7 +41,8 @@ class LoginController {
         return res.status(400).render('register');
       }
 
-      await User.create({ username, password: password1, email });
+      const hashedPassword = await hashPassword(password1);
+      await User.create({ username, password: hashedPassword, email });
 
       req.flash('success', 'Account created successfully.');
       return res.redirect('/login');

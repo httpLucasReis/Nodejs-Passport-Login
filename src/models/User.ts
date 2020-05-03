@@ -34,13 +34,6 @@ const UserSchema = new Schema(
   { timestamps: false, versionKey: false }
 );
 
-UserSchema.pre('save', async function (this: UserInterface, next: any) {
-  const hashedPassword = await bcryptjs.hash(this.password, 10);
-  this.password = hashedPassword;
-
-  next();
-});
-
 UserSchema.methods.verifyPassword = async function (
   this: UserInterface,
   password: string
