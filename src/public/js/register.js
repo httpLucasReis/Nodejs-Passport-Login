@@ -8,7 +8,7 @@
     const password1 = document.querySelector('#inputPassword1').value;
     const password2 = document.querySelector('#inputPassword2').value;
 
-    if (!username || !password1 || !password2) {
+    if (!username || !email || !password1 || !password2) {
       event.preventDefault();
       const errorEl = window.generateError('Fill in all fields!');
       divContainer.prepend(errorEl);
