@@ -30,6 +30,14 @@ const UserSchema = new Schema(
       minlength: 8,
       maxlength: 100,
     },
+    passwordToken: {
+      type: String,
+      select: false,
+    },
+    passwordTokenExpirationDate: {
+      type: Date,
+      select: false,
+    },
   },
   { timestamps: false, versionKey: false }
 );
@@ -40,6 +48,13 @@ UserSchema.methods.verifyPassword = async function (
 ): Promise<boolean> {
   const validPassword = await bcryptjs.compare(password, this.password);
   return validPassword;
+};
+
+UserSchema.methods.clearPasswordToken = function (
+  this: UserInterface
+): void {
+  this.passwordToken = undefined;
+  this.passwordTokenExpirationDate = undefined;
 };
 
 export default model<UserInterface>('User', UserSchema);

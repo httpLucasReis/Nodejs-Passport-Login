@@ -5,7 +5,10 @@ interface UserInterface extends Document {
   username: string;
   password: string;
   verifyPassword(password: string): boolean;
+  clearPasswordToken(): void;
   email: string;
+  passwordToken?: string | null;
+  passwordTokenExpirationDate?: Date | null;
 }
 
 export default UserInterface;

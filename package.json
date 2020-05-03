@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "node dist/index.js",
-    "start:dev": "ts-node-dev --transpileOnly --respawn .",
+    "start:dev": "NODE_ENV=development ts-node-dev --transpileOnly --respawn .",
     "build": "tsc"
   },
   "author": "",
@@ -22,6 +22,7 @@
     "helmet": "^3.22.0",
     "moment": "^2.24.0",
     "mongoose": "^5.9.7",
+    "nodemailer": "^6.4.6",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   },
@@ -36,6 +37,7 @@
     "@types/moment": "^2.13.0",
     "@types/mongoose": "^5.7.8",
     "@types/node": "^13.11.0",
+    "@types/nodemailer": "^6.4.0",
     "@types/passport": "^1.0.3",
     "@types/passport-local": "^1.0.33",
     "ts-node-dev": "^1.0.0-pre.44",
