@@ -8,7 +8,7 @@ import { Types } from 'mongoose';
 
 import User from '../app/models/User';
 
-import UserInterface from '../interfaces/UserInterface';
+import UserInterface from '../contracts/UserInterface';
 
 const initializePassport = (passport: PassportStatic) => {
   const verify: VerifyFunction = async (username, password, done) => {
