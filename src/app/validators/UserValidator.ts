@@ -57,11 +57,11 @@ class UserValidator {
     return isAValidUsername;
   }
 
-  public static validateEmail(email: string) {
+  public static validateEmailFormat(email: string) {
     const emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const isAValidEmail = emailRegexp.test(email);
+    const isAValidEmailFormat = emailRegexp.test(email);
 
-    return isAValidEmail;
+    return isAValidEmailFormat;
   }
 
   public static validatePasswords(password1: string, password2: string) {

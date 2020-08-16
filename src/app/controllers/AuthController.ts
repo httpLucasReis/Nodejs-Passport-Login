@@ -31,7 +31,7 @@ class LoginController {
         return res.status(406).render('register');
       }
 
-      const invalidEmail = !(UserValidator.validateEmail(email));
+      const invalidEmail = !(UserValidator.validateEmailFormat(email));
       if (invalidEmail) {
         req.flash('error', 'Invalid email format.');
         return res.status(406).render('register');
