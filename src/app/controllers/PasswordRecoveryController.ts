@@ -27,15 +27,16 @@ class PasswordRecoveryController {
       return res.redirect('/forgotPassword');
     }
 
-    const invalidToken = user.passwordToken !== token;
-    if (invalidToken) {
+    const isAnInvalidToken = user.passwordToken !== token;
+    if (isAnInvalidToken) {
       req.flash('error', 'Invalid token.');
       return res.redirect('/forgotPassword');
     }
 
     const today = new Date();
     const passwordTokenExpirationDate = user.passwordTokenExpirationDate ?? 0;
-    if (today > passwordTokenExpirationDate) {
+    const hasTheTokenExpired = today > passwordTokenExpirationDate;
+    if (hasTheTokenExpired) {
       req.flash('error', 'Expired token.');
       return res.redirect('/forgotPassword');
     }
@@ -67,7 +68,7 @@ class PasswordRecoveryController {
 
       const mail = new Mail();
       const recoveryPasswordUrl = `http://${process.env.HOST}:${process.env.PORT}/resetPassword?token=${passwordToken}&email=${emailAddress}`;
-      const emailContent = `Access this <a href="${recoveryPasswordUrl}">link</a> to recover your password.`;
+      const emailContent = `<a href="${recoveryPasswordUrl}">Click here</a> to recover your password.`;
       await mail.send(emailAddress, emailContent);
 
       req.flash(
@@ -85,11 +86,11 @@ class PasswordRecoveryController {
     try {
       const { email, password1, password2 } = req.body;
 
-      const invalidPasswords = await UserValidator.validatePasswords(
+      const arePasswordsInvalid = await UserValidator.validatePasswords(
         password1,
         password2,
       );
-      if (invalidPasswords) {
+      if (arePasswordsInvalid) {
         req.flash('error', 'Invalid passwords, try again.');
         return res.redirect(req.url);
       }
@@ -100,8 +101,8 @@ class PasswordRecoveryController {
         { email },
         { password: hashedPassword },
       ).select('+passwordToken +passwordTokenExpirationDate');
-      user?.clearPasswordToken();
 
+      user?.clearPasswordToken();
       await user?.save();
 
       req.flash('success', 'Password updated successfully');

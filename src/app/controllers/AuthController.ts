@@ -19,26 +19,34 @@ class LoginController {
         username, email, password1, password2,
       } = req.body;
 
-      const userExists = await User.findOne({ $or: [{ username }, { email }] });
-      if (userExists) {
-        req.flash('error', "There's already an account with that username or email.");
+      const userAlreadyExists = await User.findOne({
+        $or: [{ username }, { email }],
+      });
+      if (userAlreadyExists) {
+        req.flash(
+          'error',
+          "There's already an account with that username or email.",
+        );
         return res.status(409).render('register');
       }
 
-      const invalidUsername = !(UserValidator.validateUsername(username));
-      if (invalidUsername) {
+      const isAnInvalidUsername = !UserValidator.validateUsername(username);
+      if (isAnInvalidUsername) {
         req.flash('error', 'Invalid username.');
         return res.status(406).render('register');
       }
 
-      const invalidEmail = !(UserValidator.validateEmailFormat(email));
-      if (invalidEmail) {
+      const isAnInvalidEmail = !UserValidator.validateEmailFormat(email);
+      if (isAnInvalidEmail) {
         req.flash('error', 'Invalid email format.');
         return res.status(406).render('register');
       }
 
-      const invalidPasswords = !(UserValidator.validatePasswords(password1, password2));
-      if (invalidPasswords) {
+      const isAnInvalidPassword = !UserValidator.validatePasswords(
+        password1,
+        password2,
+      );
+      if (isAnInvalidPassword) {
         req.flash('error', 'Invalid password.');
         return res.status(400).render('register');
       }
