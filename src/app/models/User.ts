@@ -46,14 +46,14 @@ const UserSchema = new Schema(
 UserSchema.methods.verifyPassword = async function (
   this: UserContract,
   password: string,
-): Promise<boolean> {
+) {
   const validPassword = await bcryptjs.compare(password, this.password);
   return validPassword;
 };
 
 UserSchema.methods.clearPasswordToken = function (
   this: UserContract,
-): void {
+) {
   this.passwordToken = undefined;
   this.passwordTokenExpirationDate = undefined;
 };
