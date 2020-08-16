@@ -16,7 +16,7 @@ const failCallback = (
   req: Request,
   res: Response,
   next: Function,
-  nextValidRequestDate: any,
+  nextValidRequestDate: Date,
 ) => {
   req.flash(
     'error',
