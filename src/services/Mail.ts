@@ -21,7 +21,7 @@ class Mail {
     this.transporter = nodemailer.createTransport(transporterOptions);
   }
 
-  public async sendMail(toAddress: string, content: string) {
+  public async send(toAddress: string, content: string) {
     try {
       const mailOptions: Mailer.Options = {
         from: process.env.MAIL_USER,

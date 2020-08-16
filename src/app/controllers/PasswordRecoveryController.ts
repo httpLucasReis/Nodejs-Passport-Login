@@ -68,7 +68,7 @@ class PasswordRecoveryController {
       const mail = new Mail();
       const recoveryPasswordUrl = `http://${process.env.HOST}:${process.env.PORT}/resetPassword?token=${passwordToken}&email=${emailAddress}`;
       const emailContent = `Access this <a href="${recoveryPasswordUrl}">link</a> to recover your password.`;
-      const sentEmail = await mail.sendMail(emailAddress, emailContent);
+      const sentEmail = await mail.send(emailAddress, emailContent);
       if (!sentEmail) {
         req.flash('error', "Password recovery email message couldn't be sent.");
         return res.status(406).render('forgotPassword');
