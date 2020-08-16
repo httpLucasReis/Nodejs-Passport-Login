@@ -1,20 +1,15 @@
 import { Router } from 'express';
-
-// Controllers
 import passport from 'passport';
+
 import AuthController from './app/controllers/AuthController';
 import PasswordRecoveryController from './app/controllers/PasswordRecoveryController';
 
-// Passport configuration
-
-// Middlewares
 import checkAuthentication from './app/middlewares/checkAuthentication';
 import bruteForce from './app/middlewares/bruteForce';
 import resetBruteForce from './app/middlewares/resetBruteForce';
 
 const { checkAuthenticated, checkNotAuthenticated } = checkAuthentication;
 
-// Routes
 const routes = Router();
 
 routes.get('/login', checkNotAuthenticated, AuthController.renderLogin);
