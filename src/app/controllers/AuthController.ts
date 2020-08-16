@@ -15,7 +15,9 @@ class LoginController {
 
   public async register(req: Request, res: Response) {
     try {
-      const { username, email, password1, password2 } = req.body;
+      const {
+        username, email, password1, password2,
+      } = req.body;
 
       const userExists = await User.findOne({ $or: [{ username }, { email }] });
       if (userExists) {
@@ -58,4 +60,4 @@ class LoginController {
   }
 }
 
-export default new LoginController;
+export default new LoginController();

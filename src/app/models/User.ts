@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import { Schema, model } from 'mongoose';
 import bcryptjs from 'bcryptjs';
 
@@ -39,19 +40,19 @@ const UserSchema = new Schema(
       select: false,
     },
   },
-  { timestamps: false, versionKey: false }
+  { timestamps: false, versionKey: false },
 );
 
 UserSchema.methods.verifyPassword = async function (
   this: UserContract,
-  password: string
+  password: string,
 ): Promise<boolean> {
   const validPassword = await bcryptjs.compare(password, this.password);
   return validPassword;
 };
 
 UserSchema.methods.clearPasswordToken = function (
-  this: UserContract
+  this: UserContract,
 ): void {
   this.passwordToken = undefined;
   this.passwordTokenExpirationDate = undefined;

@@ -2,7 +2,7 @@ import { PassportStatic } from 'passport';
 import {
   Strategy as LocalStrategy,
   VerifyFunction,
-  IVerifyOptions
+  IVerifyOptions,
 } from 'passport-local';
 import { Types } from 'mongoose';
 
@@ -17,7 +17,7 @@ const initializePassport = (passport: PassportStatic) => {
 
       if (!user) {
         const options: IVerifyOptions = {
-          message: "There's no user with that username."
+          message: "There's no user with that username.",
         };
         return done(null, false, options);
       }
@@ -25,14 +25,14 @@ const initializePassport = (passport: PassportStatic) => {
       const incorrectPassword = !(await user.verifyPassword(password));
 
       if (incorrectPassword) {
-        const options = { message: 'Incorrect password.' }
+        const options = { message: 'Incorrect password.' };
         return done(null, false, options);
       }
 
       return done(null, user);
     } catch (err) {
       const options: IVerifyOptions = { message: 'Authentication failed.' };
-      done(err, false, options);
+      return done(err, false, options);
     }
   };
 
@@ -40,12 +40,12 @@ const initializePassport = (passport: PassportStatic) => {
 
   passport.use(strategy);
   passport.serializeUser((user: UserContract, done) => {
-    done(null, user.id)
+    done(null, user.id);
   });
   passport.deserializeUser(async (id: Types.ObjectId, done) => {
     const user = await User.findById(id);
     done(null, user);
   });
-}
+};
 
 export default initializePassport;

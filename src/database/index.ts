@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import mongoose, { ConnectionOptions } from 'mongoose';
 
 const connectionOptions: ConnectionOptions = {

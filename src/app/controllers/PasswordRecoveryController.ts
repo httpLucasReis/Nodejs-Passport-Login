@@ -5,13 +5,14 @@ import bcryptjs from 'bcryptjs';
 import User from '../models/User';
 import Email from '../../services/Email';
 import UserValidator from '../validators/UserValidator';
+import PasswordRecoveryRequest from '../../contracts/PasswordRecoveryRequest';
 
 class PasswordRecoveryController {
   public renderForgotPassword(req: Request, res: Response) {
     return res.render('forgotPassword');
   }
 
-  public async renderResetPassword(req: Request, res: Response) {
+  public async renderResetPassword(req: PasswordRecoveryRequest, res: Response) {
     const { token = null, email = null } = req.query;
 
     if (!token || !email) {
@@ -19,7 +20,7 @@ class PasswordRecoveryController {
     }
 
     const user = await User.findOne({ email }).select(
-      '+passwordToken +passwordTokenExpirationDate'
+      '+passwordToken +passwordTokenExpirationDate',
     );
     if (!user) {
       req.flash('error', "There's no user with the email provided.");
@@ -28,7 +29,7 @@ class PasswordRecoveryController {
 
     const invalidToken = user.passwordToken !== token;
     if (invalidToken) {
-      req.flash('error', 'Invalid token.')
+      req.flash('error', 'Invalid token.');
       return res.redirect('/forgotPassword');
     }
 
@@ -61,7 +62,7 @@ class PasswordRecoveryController {
         {
           passwordToken,
           passwordTokenExpirationDate,
-        }
+        },
       );
 
       const email = new Email();
@@ -75,7 +76,7 @@ class PasswordRecoveryController {
 
       req.flash(
         'success',
-        'Password recovery email message sent successfully.'
+        'Password recovery email message sent successfully.',
       );
       return res.render('forgotPassword');
     } catch (err) {
@@ -90,7 +91,7 @@ class PasswordRecoveryController {
 
       const invalidPasswords = await UserValidator.validatePasswords(
         password1,
-        password2
+        password2,
       );
       if (invalidPasswords) {
         req.flash('error', 'Invalid passwords, try again.');
@@ -101,7 +102,7 @@ class PasswordRecoveryController {
 
       const user = await User.findOneAndUpdate(
         { email },
-        { password: hashedPassword }
+        { password: hashedPassword },
       ).select('+passwordToken +passwordTokenExpirationDate');
       user?.clearPasswordToken();
 

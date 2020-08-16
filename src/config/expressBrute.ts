@@ -16,28 +16,25 @@ const failCallback = (
   req: Request,
   res: Response,
   next: Function,
-  nextValidRequestDate: any
-  ) => {
+  nextValidRequestDate: any,
+) => {
   req.flash(
     'error',
-    "You've made too many failed attempts in a short period of time, please try again " + moment(nextValidRequestDate).fromNow()
+    `You've made too many failed attempts in a short period of time, please try again ${moment(nextValidRequestDate).fromNow()}`,
   );
   return res.redirect('/login');
-}
+};
 
-const handleStoreError = (error: Error) => {
-  console.error(error);
-  throw {
-    message: error.message,
-  };
-}
+const handleStoreError = (error: Error) => ({
+  message: error.message,
+});
 
 // Start slowing requests after 5 failed attempts to do something for the
 // same user
 const bruteForceOptions: ExpressBruteOptions = {
   freeRetries: 5,
-  minWait: 5*60*1000, // 5 minutes
-  maxWait: 60*60*1000, // 1 hour,
+  minWait: 5 * 60 * 1000, // 5 minutes
+  maxWait: 60 * 60 * 1000, // 1 hour,
   failCallback,
   handleStoreError,
 };

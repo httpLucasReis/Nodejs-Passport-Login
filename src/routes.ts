@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 // Controllers
+import passport from 'passport';
 import AuthController from './app/controllers/AuthController';
 import PasswordRecoveryController from './app/controllers/PasswordRecoveryController';
 
 // Passport configuration
-import passport from 'passport';
 
 // Middlewares
 import checkAuthentication from './app/middlewares/checkAuthentication';
@@ -28,35 +28,33 @@ routes.post(
   '/register',
   bruteForce.prevent,
   checkNotAuthenticated,
-  AuthController.register
+  AuthController.register,
 );
 
 routes.delete('/logout', checkAuthenticated, AuthController.logout);
 
-routes.get('/private', checkAuthenticated, (req, res) => {
-  return res.render('private', { user: req.user });
-});
+routes.get('/private', checkAuthenticated, (req, res) => res.render('private', { user: req.user }));
 
 routes.get(
   '/forgotPassword',
   checkNotAuthenticated,
-  PasswordRecoveryController.renderForgotPassword
+  PasswordRecoveryController.renderForgotPassword,
 );
 routes.post(
   '/forgotPassword',
   checkNotAuthenticated,
-  PasswordRecoveryController.forgotPassword
+  PasswordRecoveryController.forgotPassword,
 );
 
 routes.get(
   '/resetPassword',
   checkNotAuthenticated,
-  PasswordRecoveryController.renderResetPassword
+  PasswordRecoveryController.renderResetPassword,
 );
 routes.post(
   '/resetPassword',
   checkNotAuthenticated,
-  PasswordRecoveryController.resetPassword
+  PasswordRecoveryController.resetPassword,
 );
 
 export default routes;

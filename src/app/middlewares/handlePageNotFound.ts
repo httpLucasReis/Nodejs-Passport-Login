@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 
-export default (req: Request, res: Response, next: NextFunction) => {
-  return res.redirect('/login');
-}
+export default (req: Request, res: Response, next: NextFunction) => (
+  res.redirect('/login')
+);

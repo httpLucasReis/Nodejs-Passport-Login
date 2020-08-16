@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 const checkAuthenticated = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   if (req.isAuthenticated()) {
     return next();
@@ -15,7 +15,7 @@ const checkAuthenticated = async (
 const checkNotAuthenticated = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   if (req.isAuthenticated()) {
     return res.redirect('/private');
