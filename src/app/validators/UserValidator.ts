@@ -23,7 +23,7 @@ class UserValidator {
     const usernameRegexp = /^[A-Za-z0-9]+(?:[_][A-Za-z0-9]+)*$/;
     const invalidUsername = (
       !usernameRegexp.test(username)
-      || username.length < UserValidator.MIN_PASSWORD_LENGTH
+      || username.length < UserValidator.MIN_USERNAME_LENGTH
     );
 
     return invalidUsername;
