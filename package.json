@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "node dist/index.js",
-    "start:dev": "NODE_ENV=development ts-node-dev --transpileOnly --respawn .",
+    "start:dev": "NODE_ENV=development ts-node-dev --ignore-watch node_modules --transpile-only --respawn .",
     "build": "tsc"
   },
   "author": "",
