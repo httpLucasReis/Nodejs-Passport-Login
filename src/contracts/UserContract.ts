@@ -1,6 +1,6 @@
 import { Document, Types } from 'mongoose';
 
-interface UserInterface extends Document {
+interface UserContract extends Document {
   id: Types.ObjectId;
   username: string;
   password: string;
@@ -12,4 +12,4 @@ interface UserInterface extends Document {
   clearPasswordToken(): void;
 }
 
-export default UserInterface;
+export default UserContract;
