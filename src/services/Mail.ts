@@ -22,17 +22,12 @@ class Mail {
   }
 
   public async send(toAddress: string, content: string) {
-    try {
-      const mailOptions: Mailer.Options = {
-        from: process.env.MAIL_USER,
-        to: toAddress,
-        html: content,
-      };
-      await this.transporter.sendMail(mailOptions);
-      return true;
-    } catch (err) {
-      return false;
-    }
+    const mailOptions: Mailer.Options = {
+      from: process.env.MAIL_USER,
+      to: toAddress,
+      html: content,
+    };
+    await this.transporter.sendMail(mailOptions);
   }
 }
 
