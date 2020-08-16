@@ -27,8 +27,8 @@ class UserValidator {
     const usernameRegexp = /^[A-Za-z0-9]+(?:[_][A-Za-z0-9]+)*$/;
     const isAValidUsernameFormat = usernameRegexp.test(username);
     const isAValidUsernameLength = (
-      username.length > UserValidator.MIN_USERNAME_LENGTH
-      && username.length < UserValidator.MAX_USERNAME_LENGTH
+      username.length >= UserValidator.MIN_USERNAME_LENGTH
+      && username.length <= UserValidator.MAX_USERNAME_LENGTH
     );
 
     const isAValidUsername = isAValidUsernameFormat && isAValidUsernameLength;
@@ -44,10 +44,10 @@ class UserValidator {
 
   public static validatePasswords(password1: string, password2: string) {
     const areThePasswordsEqual = password1 === password2;
-    const isAValidPasswordLength = (password1.length > UserValidator.MIN_PASSWORD_LENGTH
-      || password2.length > UserValidator.MIN_PASSWORD_LENGTH)
-    && (password1.length < UserValidator.MAX_PASSWORD_LENGTH
-      || password2.length < UserValidator.MAX_PASSWORD_LENGTH);
+    const isAValidPasswordLength = (password1.length >= UserValidator.MIN_PASSWORD_LENGTH
+      || password2.length >= UserValidator.MIN_PASSWORD_LENGTH)
+    && (password1.length <= UserValidator.MAX_PASSWORD_LENGTH
+      || password2.length <= UserValidator.MAX_PASSWORD_LENGTH);
 
     const isAValidPassword = isAValidPasswordLength || areThePasswordsEqual;
     return isAValidPassword;
