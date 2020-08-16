@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import bcryptjs from 'bcryptjs';
 
 import User from '../models/User';
-import Email from '../../services/Email';
+import Mail from '../../services/Mail';
 import UserValidator from '../validators/UserValidator';
 import PasswordRecoveryRequest from '../../contracts/PasswordRecoveryRequest';
 
@@ -65,10 +65,10 @@ class PasswordRecoveryController {
         },
       );
 
-      const email = new Email();
+      const mail = new Mail();
       const recoveryPasswordUrl = `http://${process.env.HOST}:${process.env.PORT}/resetPassword?token=${passwordToken}&email=${emailAddress}`;
       const emailContent = `Access this <a href="${recoveryPasswordUrl}">link</a> to recover your password.`;
-      const sentEmail = await email.sendMail(emailAddress, emailContent);
+      const sentEmail = await mail.sendMail(emailAddress, emailContent);
       if (!sentEmail) {
         req.flash('error', "Password recovery email message couldn't be sent.");
         return res.status(406).render('forgotPassword');

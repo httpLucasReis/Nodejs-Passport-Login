@@ -1,9 +1,9 @@
 import nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
-import Mail from 'nodemailer/lib/mailer';
+import Mailer from 'nodemailer/lib/mailer';
 
-class Email {
-  private transporter!: Mail;
+class Mail {
+  private transporter!: Mailer;
 
   public constructor() {
     this.createTransport();
@@ -23,7 +23,7 @@ class Email {
 
   public async sendMail(toAddress: string, content: string) {
     try {
-      const mailOptions: Mail.Options = {
+      const mailOptions: Mailer.Options = {
         from: process.env.MAIL_USER,
         to: toAddress,
         html: content,
@@ -36,4 +36,4 @@ class Email {
   }
 }
 
-export default Email;
+export default Mail;
