@@ -2,10 +2,7 @@ import ExpressBrute, { Options as ExpressBruteOptions } from 'express-brute';
 import MemCached from 'express-brute-memcached';
 import { Request, Response } from 'express';
 import moment from 'moment';
-import dotenv from 'dotenv';
 import { MemoryStore } from 'express-session';
-
-dotenv.config();
 
 let store: MemoryStore | MemCached;
 

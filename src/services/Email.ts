@@ -1,11 +1,6 @@
 import nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import Mail from 'nodemailer/lib/mailer';
-import dotenv from 'dotenv';
-
-if (process.env.NODE_ENV === 'development') {
-  dotenv.config();
-}
 
 class Email {
   private transporter!: Mail;
