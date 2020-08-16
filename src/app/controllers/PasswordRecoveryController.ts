@@ -54,8 +54,8 @@ class PasswordRecoveryController {
       }
 
       const passwordToken = crypto.randomBytes(16).toString('hex');
-      // 3600000 = 1 hour in milliseconds
-      const passwordTokenExpirationDate = new Date(Date.now() + 3600000);
+      const oneHour = 3600000;
+      const passwordTokenExpirationDate = new Date(Date.now() + oneHour);
 
       await User.findOneAndUpdate(
         { email: emailAddress },

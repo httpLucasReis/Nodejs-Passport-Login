@@ -29,12 +29,12 @@ const handleStoreError = (error: Error) => ({
   message: error.message,
 });
 
-// Start slowing requests after 5 failed attempts to do something for the
-// same user
+const fiveMinutes = 5 * 60 * 1000;
+const oneHour = 60 * 60 * 1000;
 const bruteForceOptions: ExpressBruteOptions = {
   freeRetries: 5,
-  minWait: 5 * 60 * 1000, // 5 minutes
-  maxWait: 60 * 60 * 1000, // 1 hour,
+  minWait: fiveMinutes,
+  maxWait: oneHour,
   failCallback,
   handleStoreError,
 };

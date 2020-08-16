@@ -1,4 +1,8 @@
 class UserValidator {
+  private static MIN_USERNAME_LENGTH = 3;
+
+  private static MIN_PASSWORD_LENGTH = 8;
+
   public static validateUsername(username: string) {
     // The username
     /* must have
@@ -17,7 +21,10 @@ class UserValidator {
      */
 
     const usernameRegexp = /^[A-Za-z0-9]+(?:[_][A-Za-z0-9]+)*$/;
-    const invalidUsername = !usernameRegexp.test(username) || username.length < 3;
+    const invalidUsername = (
+      !usernameRegexp.test(username)
+      || username.length < UserValidator.MIN_PASSWORD_LENGTH
+    );
 
     return invalidUsername;
   }
@@ -30,7 +37,10 @@ class UserValidator {
   }
 
   public static validatePasswords(password1: string, password2: string) {
-    const invalidPasswordLength = password1.length < 8 || password2.length < 8;
+    const invalidPasswordLength = (
+      password1.length < UserValidator.MIN_PASSWORD_LENGTH
+      || password2.length < UserValidator.MIN_PASSWORD_LENGTH
+    );
     const differentPasswords = password1 !== password2;
 
     return invalidPasswordLength || differentPasswords;
