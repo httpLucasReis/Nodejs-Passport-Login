@@ -25,19 +25,19 @@ class LoginController {
         return res.status(409).render('register');
       }
 
-      const invalidUsername = UserValidator.validateUsername(username);
+      const invalidUsername = !(UserValidator.validateUsername(username));
       if (invalidUsername) {
         req.flash('error', 'Invalid username.');
         return res.status(406).render('register');
       }
 
-      const invalidEmail = UserValidator.validateEmail(email);
+      const invalidEmail = !(UserValidator.validateEmail(email));
       if (invalidEmail) {
         req.flash('error', 'Invalid email format.');
         return res.status(406).render('register');
       }
 
-      const invalidPasswords = UserValidator.validatePasswords(password1, password2);
+      const invalidPasswords = !(UserValidator.validatePasswords(password1, password2));
       if (invalidPasswords) {
         req.flash('error', 'Invalid password.');
         return res.status(400).render('register');

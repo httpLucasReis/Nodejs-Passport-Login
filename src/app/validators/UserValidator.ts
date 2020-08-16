@@ -21,29 +21,30 @@ class UserValidator {
      */
 
     const usernameRegexp = /^[A-Za-z0-9]+(?:[_][A-Za-z0-9]+)*$/;
-    const invalidUsername = (
-      !usernameRegexp.test(username)
-      || username.length < UserValidator.MIN_USERNAME_LENGTH
+    const isAValidUsername = (
+      usernameRegexp.test(username)
+      || username.length > UserValidator.MIN_USERNAME_LENGTH
     );
 
-    return invalidUsername;
+    return isAValidUsername;
   }
 
   public static validateEmail(email: string) {
     const emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const invalidEmail = !emailRegexp.test(email);
+    const isAValidEmail = emailRegexp.test(email);
 
-    return invalidEmail;
+    return isAValidEmail;
   }
 
   public static validatePasswords(password1: string, password2: string) {
-    const invalidPasswordLength = (
-      password1.length < UserValidator.MIN_PASSWORD_LENGTH
-      || password2.length < UserValidator.MIN_PASSWORD_LENGTH
+    const isAValidPasswordLength = (
+      password1.length > UserValidator.MIN_PASSWORD_LENGTH
+      || password2.length > UserValidator.MIN_PASSWORD_LENGTH
     );
-    const differentPasswords = password1 !== password2;
+    const areThePasswordsEqual = password1 === password2;
 
-    return invalidPasswordLength || differentPasswords;
+    const isAValidPassword = isAValidPasswordLength || areThePasswordsEqual;
+    return isAValidPassword;
   }
 }
 
