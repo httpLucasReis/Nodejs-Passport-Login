@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import bcryptjs from 'bcryptjs';
 
-import UserInterface from '../../contracts/UserInterface';
+import UserContract from '../../contracts/UserContract';
 
 const UserSchema = new Schema(
   {
@@ -43,7 +43,7 @@ const UserSchema = new Schema(
 );
 
 UserSchema.methods.verifyPassword = async function (
-  this: UserInterface,
+  this: UserContract,
   password: string
 ): Promise<boolean> {
   const validPassword = await bcryptjs.compare(password, this.password);
@@ -51,10 +51,10 @@ UserSchema.methods.verifyPassword = async function (
 };
 
 UserSchema.methods.clearPasswordToken = function (
-  this: UserInterface
+  this: UserContract
 ): void {
   this.passwordToken = undefined;
   this.passwordTokenExpirationDate = undefined;
 };
 
-export default model<UserInterface>('User', UserSchema);
+export default model<UserContract>('User', UserSchema);

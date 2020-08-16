@@ -8,7 +8,7 @@ import { Types } from 'mongoose';
 
 import User from '../app/models/User';
 
-import UserInterface from '../contracts/UserInterface';
+import UserContract from '../contracts/UserContract';
 
 const initializePassport = (passport: PassportStatic) => {
   const verify: VerifyFunction = async (username, password, done) => {
@@ -39,7 +39,7 @@ const initializePassport = (passport: PassportStatic) => {
   const strategy = new LocalStrategy(verify);
 
   passport.use(strategy);
-  passport.serializeUser((user: UserInterface, done) => {
+  passport.serializeUser((user: UserContract, done) => {
     done(null, user.id)
   });
   passport.deserializeUser(async (id: Types.ObjectId, done) => {
