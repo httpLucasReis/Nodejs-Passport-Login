@@ -4,11 +4,12 @@ interface UserInterface extends Document {
   id: Types.ObjectId;
   username: string;
   password: string;
-  verifyPassword(password: string): boolean;
-  clearPasswordToken(): void;
   email: string;
   passwordToken?: string | null;
   passwordTokenExpirationDate?: Date | null;
+
+  verifyPassword(password: string): boolean;
+  clearPasswordToken(): void;
 }
 
 export default UserInterface;
