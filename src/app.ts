@@ -6,7 +6,7 @@ import passport from 'passport';
 import { resolve } from 'path';
 import helmet from 'helmet';
 
-import handlePageNotFound from './middlewares/handlePageNotFound';
+import handlePageNotFound from './app/middlewares/handlePageNotFound';
 import routes from './routes';
 import initializePassport from './config/passport';
 
@@ -35,7 +35,7 @@ class App {
   }
 
   private settings() {
-    this._express.set('views', resolve(__dirname, 'views'));
+    this._express.set('views', resolve(__dirname, 'app', 'views'));
     this._express.set('view engine', 'ejs');
     this._express.set('PORT', process.env.PORT || 3333);
   }

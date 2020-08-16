@@ -6,7 +6,7 @@ import {
 } from 'passport-local';
 import { Types } from 'mongoose';
 
-import User from '../models/User';
+import User from '../app/models/User';
 
 import UserInterface from '../interfaces/UserInterface';
 

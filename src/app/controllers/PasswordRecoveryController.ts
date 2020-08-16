@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import bcryptjs from 'bcryptjs';
 
 import User from '../models/User';
-import Email from '../services/Email';
+import Email from '../../services/Email';
 import UserValidator from '../validators/UserValidator';
 
 class PasswordRecoveryController {

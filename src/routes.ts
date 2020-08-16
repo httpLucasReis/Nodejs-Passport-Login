@@ -1,16 +1,16 @@
 import { Router } from 'express';
 
 // Controllers
-import AuthController from './controllers/AuthController';
-import PasswordRecoveryController from './controllers/PasswordRecoveryController';
+import AuthController from './app/controllers/AuthController';
+import PasswordRecoveryController from './app/controllers/PasswordRecoveryController';
 
 // Passport configuration
 import passport from 'passport';
 
 // Middlewares
-import checkAuthentication from './middlewares/checkAuthentication';
-import bruteForce from './middlewares/bruteForce';
-import resetBruteForce from './middlewares/resetBruteForce';
+import checkAuthentication from './app/middlewares/checkAuthentication';
+import bruteForce from './app/middlewares/bruteForce';
+import resetBruteForce from './app/middlewares/resetBruteForce';
 
 const { checkAuthenticated, checkNotAuthenticated } = checkAuthentication;
 

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import User from '../models/User';
 import UserValidator from '../validators/UserValidator';
-import hashPassword from '../utils/hashPassword';
+import hashPassword from '../../utils/hashPassword';
 
 class LoginController {
   public renderLogin(req: Request, res: Response) {
