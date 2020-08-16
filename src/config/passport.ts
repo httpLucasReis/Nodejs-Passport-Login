@@ -6,9 +6,9 @@ import {
 } from 'passport-local';
 import { Types } from 'mongoose';
 
-import User from '../app/models/User';
+import User from '@models/User';
 
-import UserContract from '../contracts/UserContract';
+import UserContract from '@contracts/UserContract';
 
 const initializePassport = (passport: PassportStatic) => {
   const verify: VerifyFunction = async (username, password, done) => {

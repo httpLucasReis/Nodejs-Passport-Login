@@ -6,9 +6,9 @@ import passport from 'passport';
 import { resolve } from 'path';
 import helmet from 'helmet';
 
-import handlePageNotFound from './app/middlewares/handlePageNotFound';
+import handlePageNotFound from '@middlewares/handlePageNotFound';
+import initializePassport from '@config/passport';
 import routes from './routes';
-import initializePassport from './config/passport';
 
 if (process.env.NODE_ENV === 'development') {
   dotenv.config();

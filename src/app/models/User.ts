@@ -2,7 +2,7 @@
 import { Schema, model } from 'mongoose';
 import bcryptjs from 'bcryptjs';
 
-import UserContract from '../../contracts/UserContract';
+import UserContract from '@contracts/UserContract';
 
 const UserSchema = new Schema(
   {
