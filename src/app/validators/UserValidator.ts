@@ -1,7 +1,11 @@
 class UserValidator {
   private static MIN_USERNAME_LENGTH = 3;
 
+  private static MAX_USERNAME_LENGTH = 50;
+
   private static MIN_PASSWORD_LENGTH = 8;
+
+  private static MAX_PASSWORD_LENGTH = 50;
 
   public static validateUsername(username: string) {
     // The username
@@ -21,11 +25,13 @@ class UserValidator {
      */
 
     const usernameRegexp = /^[A-Za-z0-9]+(?:[_][A-Za-z0-9]+)*$/;
-    const isAValidUsername = (
-      usernameRegexp.test(username)
-      || username.length > UserValidator.MIN_USERNAME_LENGTH
+    const isAValidUsernameFormat = usernameRegexp.test(username);
+    const isAValidUsernameLength = (
+      username.length > UserValidator.MIN_USERNAME_LENGTH
+      && username.length < UserValidator.MAX_USERNAME_LENGTH
     );
 
+    const isAValidUsername = isAValidUsernameFormat && isAValidUsernameLength;
     return isAValidUsername;
   }
 
@@ -37,11 +43,11 @@ class UserValidator {
   }
 
   public static validatePasswords(password1: string, password2: string) {
-    const isAValidPasswordLength = (
-      password1.length > UserValidator.MIN_PASSWORD_LENGTH
-      || password2.length > UserValidator.MIN_PASSWORD_LENGTH
-    );
     const areThePasswordsEqual = password1 === password2;
+    const isAValidPasswordLength = (password1.length > UserValidator.MIN_PASSWORD_LENGTH
+      || password2.length > UserValidator.MIN_PASSWORD_LENGTH)
+    && (password1.length < UserValidator.MAX_PASSWORD_LENGTH
+      || password2.length < UserValidator.MAX_PASSWORD_LENGTH);
 
     const isAValidPassword = isAValidPasswordLength || areThePasswordsEqual;
     return isAValidPassword;
