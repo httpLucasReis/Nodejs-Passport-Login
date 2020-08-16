@@ -22,18 +22,18 @@ class App {
   public constructor() {
     this.express = express();
 
-    this.settings();
-    this.middlewares();
-    this.routes();
+    this.loadSettings();
+    this.loadMiddlewares();
+    this.loadRoutes();
   }
 
-  private settings() {
+  private loadSettings() {
     this.express.set('views', resolve(__dirname, 'app', 'views'));
     this.express.set('view engine', 'ejs');
     this.express.set('PORT', process.env.PORT || 3333);
   }
 
-  private middlewares() {
+  private loadMiddlewares() {
     this.express.use(express.urlencoded({ extended: false }));
     this.express.use(express.json());
     this.express.use(helmet());
@@ -50,11 +50,10 @@ class App {
     this.express.use(passport.session());
   }
 
-  private routes() {
+  private loadRoutes() {
     this.express.use('/public', express.static(resolve(__dirname, 'public')));
     this.express.use(routes);
 
-    // To handle pages not found, this middleware must be after the routes
     this.express.use(handlePageNotFound);
   }
 }
