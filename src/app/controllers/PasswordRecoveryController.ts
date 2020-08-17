@@ -6,6 +6,7 @@ import User from '@models/User';
 import Mail from '@services/Mail';
 import UserValidator from '@validators/UserValidator';
 import PasswordRecoveryRequest from '@contracts/PasswordRecoveryRequest';
+import generateToken from '@utils/generateToken';
 
 class PasswordRecoveryController {
   public renderForgotPassword(req: Request, res: Response) {
@@ -54,7 +55,7 @@ class PasswordRecoveryController {
         return res.status(406).render('forgotPassword');
       }
 
-      const passwordToken = crypto.randomBytes(16).toString('hex');
+      const passwordToken = generateToken();
       const oneHour = 3600000;
       const passwordTokenExpirationDate = new Date(Date.now() + oneHour);
 
