@@ -103,8 +103,7 @@ class PasswordRecoveryController {
         { password: hashedPassword },
       ).select('+passwordToken +passwordTokenExpirationDate');
 
-      user?.clearPasswordToken();
-      await user?.save();
+      await user?.clearPasswordToken();
 
       req.flash('success', 'Password updated successfully');
       return res.redirect('/login');

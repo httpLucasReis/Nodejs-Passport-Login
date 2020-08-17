@@ -60,11 +60,12 @@ UserSchema.methods.verifyPassword = async function (
   return validPassword;
 };
 
-UserSchema.methods.clearPasswordToken = function (
+UserSchema.methods.clearPasswordToken = async function (
   this: UserContract,
 ) {
   this.passwordToken = undefined;
   this.passwordTokenExpirationDate = undefined;
+  await this.save();
 };
 
 UserSchema.methods.setEmailAsVerified = async function (
