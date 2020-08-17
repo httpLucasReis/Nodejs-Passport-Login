@@ -4,7 +4,7 @@ import User from '@models/User';
 import UserValidator from '@validators/UserValidator';
 import hashPassword from '@utils/hashPassword';
 
-class LoginController {
+class AuthController {
   public renderLogin(req: Request, res: Response) {
     return res.render('login');
   }
@@ -68,4 +68,4 @@ class LoginController {
   }
 }
 
-export default new LoginController();
+export default new AuthController();
