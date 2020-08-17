@@ -12,7 +12,7 @@ interface UserContract extends Document {
 
   verifyPassword(password: string): boolean;
   clearPasswordToken(): void;
-  clearEmailVerificationToken(): void;
+  setEmailAsVerified(): void;
 }
 
 export default UserContract;

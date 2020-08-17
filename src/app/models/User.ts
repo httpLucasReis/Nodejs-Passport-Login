@@ -67,10 +67,12 @@ UserSchema.methods.clearPasswordToken = function (
   this.passwordTokenExpirationDate = undefined;
 };
 
-UserSchema.methods.clearEmailVerificationToken = function (
+UserSchema.methods.setEmailAsVerified = async function (
   this: UserContract,
 ) {
   this.emailVerificationToken = undefined;
+  this.verified = true;
+  await this.save();
 };
 
 export default model<UserContract>('User', UserSchema);
