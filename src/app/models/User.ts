@@ -31,12 +31,21 @@ const UserSchema = new Schema(
       minlength: 8,
       maxlength: 100,
     },
+    verified: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     passwordToken: {
       type: String,
       select: false,
     },
     passwordTokenExpirationDate: {
       type: Date,
+      select: false,
+    },
+    emailVerificationToken: {
+      type: String,
       select: false,
     },
   },
@@ -56,6 +65,12 @@ UserSchema.methods.clearPasswordToken = function (
 ) {
   this.passwordToken = undefined;
   this.passwordTokenExpirationDate = undefined;
+};
+
+UserSchema.methods.clearEmailVerificationToken = function (
+  this: UserContract,
+) {
+  this.emailVerificationToken = undefined;
 };
 
 export default model<UserContract>('User', UserSchema);
