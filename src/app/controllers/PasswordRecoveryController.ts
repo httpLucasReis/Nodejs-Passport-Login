@@ -87,10 +87,10 @@ class PasswordRecoveryController {
     try {
       const { email, password1, password2 } = req.body;
 
-      const arePasswordsInvalid = await UserValidator.validatePasswords(
+      const arePasswordsInvalid = !(await UserValidator.validatePasswords(
         password1,
         password2,
-      );
+      ));
       if (arePasswordsInvalid) {
         req.flash('error', 'Invalid passwords, try again.');
         return res.redirect(req.url);
