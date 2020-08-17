@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import User from '@models/User';
 import UserValidator from '@validators/UserValidator';
 import hashPassword from '@utils/hashPassword';
+import generateToken from '@utils/generateToken';
 
 class AuthController {
   public renderLogin(req: Request, res: Response) {
@@ -51,11 +52,17 @@ class AuthController {
         return res.status(400).render('register');
       }
 
+      const emailVerificationToken = generateToken();
       const hashedPassword = await hashPassword(password1);
-      await User.create({ username, password: hashedPassword, email });
+      await User.create({
+        username,
+        password: hashedPassword,
+        email,
+        emailVerificationToken,
+      });
 
-      req.flash('success', 'Account created successfully.');
-      return res.redirect('/login');
+      const sendEmailVerificationUrl = `http://${process.env.HOST}:${process.env.PORT}/sendVerificationEmail?email=${email}`;
+      return res.redirect(sendEmailVerificationUrl);
     } catch (err) {
       req.flash('error', "Couldn't register your account, try again.");
       return res.render('register');

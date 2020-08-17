@@ -29,6 +29,11 @@ const initializePassport = (passport: PassportStatic) => {
         return done(null, false, options);
       }
 
+      if (!user.verified) {
+        const options = { message: 'You have not yet activated your account.' };
+        return done(null, false, options);
+      }
+
       return done(null, user);
     } catch (err) {
       const options: IVerifyOptions = { message: 'Authentication failed.' };
