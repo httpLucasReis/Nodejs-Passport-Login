@@ -5,11 +5,14 @@ interface UserContract extends Document {
   username: string;
   password: string;
   email: string;
+  verified?: boolean;
   passwordToken?: string | null;
   passwordTokenExpirationDate?: Date | null;
+  emailVerificationToken?: string;
 
   verifyPassword(password: string): boolean;
   clearPasswordToken(): void;
+  clearEmailVerificationToken(): void;
 }
 
 export default UserContract;
