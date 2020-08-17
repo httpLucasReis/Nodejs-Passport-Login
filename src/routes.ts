@@ -56,4 +56,6 @@ routes.post(
 
 routes.get('/verifyEmail', EmailVerificationController.index);
 
+routes.get('/sendVerificationEmail', SendingVerificationEmailController.index);
+
 export default routes;
