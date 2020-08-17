@@ -5,7 +5,7 @@ import bcryptjs from 'bcryptjs';
 import User from '@models/User';
 import Mail from '@services/Mail';
 import UserValidator from '@validators/UserValidator';
-import PasswordRecoveryRequest from '@contracts/PasswordRecoveryRequest';
+import TokenRequest from '@contracts/TokenRequest';
 import generateToken from '@utils/generateToken';
 
 class PasswordRecoveryController {
@@ -13,7 +13,7 @@ class PasswordRecoveryController {
     return res.render('forgotPassword');
   }
 
-  public async renderResetPassword(req: PasswordRecoveryRequest, res: Response) {
+  public async renderResetPassword(req: TokenRequest, res: Response) {
     const { token = null, email = null } = req.query;
 
     if (!token || !email) {
