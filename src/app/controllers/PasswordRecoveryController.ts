@@ -103,7 +103,11 @@ class PasswordRecoveryController {
         { password: hashedPassword },
       ).select('+passwordToken +passwordTokenExpirationDate');
 
-      await user?.clearPasswordToken();
+      if (!user) {
+        throw new Error('User not found.');
+      }
+
+      await user.clearPasswordToken();
 
       req.flash('success', 'Password updated successfully');
       return res.redirect('/login');
