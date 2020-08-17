@@ -3,10 +3,12 @@ import passport from 'passport';
 
 import AuthController from '@controllers/AuthController';
 import PasswordRecoveryController from '@controllers/PasswordRecoveryController';
+import EmailVerificationController from '@controllers/EmailVerificationController';
 
 import checkAuthentication from '@middlewares/checkAuthentication';
 import bruteForce from '@middlewares/bruteForce';
 import resetBruteForce from '@middlewares/resetBruteForce';
+import SendingVerificationEmailController from '@controllers/SendingVerificationEmailController';
 
 const { checkAuthenticated, checkNotAuthenticated } = checkAuthentication;
 
@@ -51,5 +53,7 @@ routes.post(
   checkNotAuthenticated,
   PasswordRecoveryController.resetPassword,
 );
+
+routes.get('/verifyEmail', EmailVerificationController.index);
 
 export default routes;
