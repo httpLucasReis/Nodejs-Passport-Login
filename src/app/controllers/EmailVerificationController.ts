@@ -12,7 +12,7 @@ class EmailVerificationController {
         .select('+emailVerificationToken');
 
       if (!user) {
-        req.flash('error', 'There is no user with the provided email.');
+        req.flash('error', "There's no user with the provided email.");
         return res.redirect('/login');
       }
 
@@ -29,7 +29,7 @@ class EmailVerificationController {
       req.flash('success', 'Your account has been verified.');
       return res.redirect('/login');
     } catch (err) {
-      req.flash('error', 'Could not verify your account.');
+      req.flash('error', "Couldn't verify your account.");
       return res.redirect('/login');
     }
   }

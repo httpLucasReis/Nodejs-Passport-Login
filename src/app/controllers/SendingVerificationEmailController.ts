@@ -35,7 +35,7 @@ class SendingVerificationEmailController {
 
       return res.render('send_verification_email', { email });
     } catch (err) {
-      req.flash('error', 'Could not send a confirmation email.');
+      req.flash('error', "Couldn't send a confirmation email.");
       return res.redirect('/login');
     }
   }
